@@ -9,7 +9,7 @@ public class monster {
     private boolean life;
 
     public String toString(){
-        return name+" sauvage a "+hp+" PV, "+dmg+" DMG et "+armor+" ARMURE";
+        return name+" sauvage avec "+hp+" PV, "+dmg+" DMG et "+armor+" ARMURE";
     }
 
     public void attackMonster(hero h){
