@@ -1,24 +1,27 @@
+package heros;
 import java.util.*;
 
-public class hero {
-    private String name;
-    private int hp;
-    private double dmg;
-    private double armor;
-    private double def;
-    private boolean life;
+import monsters.monster;
+
+public abstract class hero {
+    protected String name;
+    protected int hp;
+    protected double dmg;
+    protected double armor;
+    protected double def;
+    protected boolean life;
 
     public hero() {
-        this.name = "Sentinelle";
-        this.hp = 60;
-        this.dmg = 20;
-        this.armor = 10;
+        this.name = "Ton héro";
+        this.hp = 150;
+        this.dmg = 30;
+        this.armor = 15;
         this.def = armor;
         this.life = true;
     }
 
     public hero(String name, int hp, double dmg, double armor, double def, boolean life){
-        this.name = "Sentinelle";
+        this.name = name;
         this.hp = hp;
         this.dmg = dmg;
         this.armor = armor;
@@ -28,7 +31,7 @@ public class hero {
     }
 
     public String toString(){
-        return name+" a "+hp+" PV, "+dmg+" DMG, et "+armor+" ARMURE";
+        return name+" a "+hp+" PV | "+dmg+" DMG | "+armor+" ARMURE";
     }
 
     public void attackHero(monster m){
@@ -42,7 +45,6 @@ public class hero {
 
     public void parryHero(){
         this.armor = this.def*2;
-        System.out.println("\n---------------------------");
         System.out.println("\n"+getNameHero()+" se prépare à parer la prochaine attaque, son armure augmente !  "+"+ "+(getArmorHero()/2)+" ARMURE");
     }
 
@@ -51,8 +53,7 @@ public class hero {
         Scanner input = new Scanner(System.in);
         System.out.print("---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  : ");
         choice = input.nextInt();
-        System.out.println("\n-========================================================-");
-
+        System.out.println("\n-=======================================================-");
         
             if (choice == 1){
                 attackHero(m);
@@ -68,8 +69,14 @@ public class hero {
                 System.out.println("---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  :");
                 choice = input.nextInt();
             }
-        
         }
+
+    public void monsterCheckLife(monster m){
+        if (m.getHpMonster() <= 0){
+            m.setLifeMonster(false);
+            System.out.println("\n =========> "+getNameHero()+" a poncé "+m.getNameMonster()+",  LVL UP !");    
+        }
+    }
 
     public String getNameHero(){
         return this.name;
@@ -115,7 +122,7 @@ public class hero {
     }
 
     public void setLifeHero(boolean life){
-        this.life = true;
+        this.life = life;
     }
 
 }

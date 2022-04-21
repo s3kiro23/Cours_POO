@@ -1,30 +1,31 @@
+package monsters;
 import java.util.*;
 
-public class monster {
-    private String name;
-    private int hp;
-    private double dmg;
-    private double armor;
-    private double def;
-    private boolean life;
+import heros.hero;
+
+public abstract class monster {
+    protected String name;
+    protected int hp;
+    protected double dmg;
+    protected double armor;
+    protected double def;
+    protected boolean life;
 
     public String toString(){
-        return name+" sauvage avec "+hp+" PV, "+dmg+" DMG et "+armor+" ARMURE";
+        return name+" a "+hp+" PV | "+dmg+" DMG | "+armor+" ARMURE";
     }
 
     public void attackMonster(hero h){
         this.armor = this.def;
         double dmgMonster = h.getHpHero()-(this.getDmgMonster()-h.getArmorHero());
         h.setHpHero((int) dmgMonster);
-        System.out.println("\n---------------------------");
-        System.out.println("\n"+getNameMonster()+" attaque "+h.getNameHero()+" et lui inflige "+(this.getDmgMonster()-h.getArmorHero())+" DMG \n");
+        System.out.println(getNameMonster()+" attaque "+h.getNameHero()+" et lui inflige "+(this.getDmgMonster()-h.getArmorHero())+" DMG \n");
         System.out.println(h);
     }
 
     public void parryMonster(){
         this.armor = this.def*2;
-        System.out.println("\n---------------------------");
-        System.out.println("\n"+getNameMonster()+" sauvage se prépare à parer la prochaine attaque, son armure augmente !  "+"+ "+getArmorMonster()/2+" ARMURE");
+        System.out.println(getNameMonster()+" sauvage se prépare à parer la prochaine attaque, son armure augmente !  "+"+ "+getArmorMonster()/2+" ARMURE");
     }
 
     public void playMonster(hero h){
@@ -44,7 +45,7 @@ public class monster {
         this.name = "Goodoo";
         this.hp = 30;
         this.dmg = 20;
-        this.armor = 10;
+        this.armor = 5;
         this.def = armor;
         this.life = true;
     }
@@ -55,6 +56,13 @@ public class monster {
         this.armor = armor;
         this.def = armor;
         this.life = true;
+    }
+
+    public void heroCheckLife(hero h){
+        if (h.getHpHero() <= 0){
+            h.setLifeHero(false);
+            System.out.println("\n =========> "+getNameMonster()+" a poncé "+h.getNameHero()+",  GAME OVER !");    
+        }
     }
 
     public String getNameMonster(){
@@ -102,6 +110,6 @@ public class monster {
     }
 
     public void setLifeMonster(boolean life){
-        this.life = true;
+        this.life = life;
     }
 }
