@@ -22,6 +22,7 @@ public class boss extends monster{
         bossName.add("Diablo");
         bossName.add("Sargeras");
         bossName.add("Kil'Jaeden");
+        bossName.add("Jade");
         String bossNameRNG = bossName.get(new Random().nextInt(bossName.size()));
 
         this.name = bossNameRNG;

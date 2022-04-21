@@ -13,7 +13,7 @@ public class mob extends monster{
         mobsName.add("Goodoo sauvage");
         mobsName.add("Murloc sauvage");
         mobsName.add("Sanglier sauvage");
-        mobsName.add("Jade sauvage");
+        mobsName.add("Lapin sauvage");
         mobsName.add("Serpent sauvage");
         mobsName.add("Araignée sauvage");
         mobsName.add("Poulet sauvage");
