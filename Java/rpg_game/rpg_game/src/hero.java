@@ -18,7 +18,7 @@ public class hero {
         this.life = true;
     }
     public hero(String name, int hp, double dmg, double armor, double def, boolean life){
-        this.name = "Sentinelle";
+        this.name = name;
         this.hp = hp;
         this.dmg = dmg;
         this.armor = armor;
@@ -38,6 +38,10 @@ public class hero {
             m.setHpMonster((int) dmgHero);
             System.out.println("\n"+getNameHero()+" attaque "+m.getNameMonster()+" et lui inflige "+(this.getDmgHero()-m.getArmorMonster())+" DMG \n");
             System.out.println(m);
+            
+            if (m.getHpMonster() <= 0){
+                System.out.println("\n =========> "+this.getNameHero()+" a poncé "+m.getNameMonster()+",  LVL UP !");
+            }            
 
     }
 

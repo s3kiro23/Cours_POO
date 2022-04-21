@@ -15,12 +15,6 @@ public class main {
             h1.playHero(m1);
             m1.playMonster(h1);
 
-        if (h1.getHpHero() == 0){
-            System.out.println("\n =========> "+m1.getNameMonster()+" a poncé "+h1.getNameHero()+",  Game Over !");
-        }
-        if (m1.getHpMonster() == 0){
-            System.out.println("\n =========> "+h1.getNameHero()+" a poncé "+m1.getNameMonster()+",  LVL UP !");
-        }
     
         }
     }
