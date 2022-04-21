@@ -7,7 +7,6 @@ public class hero {
     private double armor;
     private double def;
     private boolean life;
-    private int round;
 
     public hero() {
         this.name = "Sentinelle";
@@ -17,8 +16,9 @@ public class hero {
         this.def = armor;
         this.life = true;
     }
+
     public hero(String name, int hp, double dmg, double armor, double def, boolean life){
-        this.name = name;
+        this.name = "Sentinelle";
         this.hp = hp;
         this.dmg = dmg;
         this.armor = armor;
@@ -33,15 +33,10 @@ public class hero {
 
     public void attackHero(monster m){
             this.armor = this.def;
-            round = 0;
             double dmgHero = m.getHpMonster()-(this.getDmgHero()-m.getArmorMonster());
             m.setHpMonster((int) dmgHero);
             System.out.println("\n"+getNameHero()+" attaque "+m.getNameMonster()+" et lui inflige "+(this.getDmgHero()-m.getArmorMonster())+" DMG \n");
             System.out.println(m);
-            
-            if (m.getHpMonster() <= 0){
-                System.out.println("\n =========> "+this.getNameHero()+" a poncé "+m.getNameMonster()+",  LVL UP !");
-            }            
 
     }
 
@@ -56,7 +51,7 @@ public class hero {
         Scanner input = new Scanner(System.in);
         System.out.print("---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  : ");
         choice = input.nextInt();
-        System.out.println("\n-========================================================-\n");
+        System.out.println("\n-========================================================-");
 
         
             if (choice == 1){

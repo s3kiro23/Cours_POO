@@ -9,7 +9,7 @@ public class monster {
     private boolean life;
 
     public String toString(){
-        return name+" sauvage a "+hp+" PV, "+dmg+" DMG et "+armor+" ARMURE";
+        return name+" sauvage avec "+hp+" PV, "+dmg+" DMG et "+armor+" ARMURE";
     }
 
     public void attackMonster(hero h){
@@ -19,10 +19,6 @@ public class monster {
         System.out.println("\n---------------------------");
         System.out.println("\n"+getNameMonster()+" attaque "+h.getNameHero()+" et lui inflige "+(this.getDmgMonster()-h.getArmorHero())+" DMG \n");
         System.out.println(h);
-
-        if (h.getHpHero() <= 0){
-            System.out.println("\n =========> "+this.getNameMonster()+" a poncé "+h.getNameHero()+",  Game Over !");
-        } 
     }
 
     public void parryMonster(){
