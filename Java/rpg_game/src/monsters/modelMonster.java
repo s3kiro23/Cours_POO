@@ -1,9 +1,9 @@
 package monsters;
 import java.util.*;
 
-import heros.hero;
+import heros.modelHero;
 
-public abstract class monster {
+public abstract class modelMonster {
     protected String name;
     protected int hp;
     protected double dmg;
@@ -15,7 +15,7 @@ public abstract class monster {
         return name+" a "+hp+" PV | "+dmg+" DMG | "+armor+" ARMURE";
     }
 
-    public void attackMonster(hero h){
+    public void attackMonster(modelHero h){
         this.armor = this.def;
         double dmgMonster = h.getHpHero()-(this.getDmgMonster()-h.getArmorHero());
         h.setHpHero((int) dmgMonster);
@@ -28,7 +28,7 @@ public abstract class monster {
         System.out.println(getNameMonster()+" sauvage se prépare à parer la prochaine attaque, son armure augmente !  "+"+ "+getArmorMonster()/2+" ARMURE");
     }
 
-    public void playMonster(hero h){
+    public void playMonster(modelHero h){
         Random rand = new Random();
         int rng = rand.nextInt(2-1+1)+1;
 
@@ -41,7 +41,7 @@ public abstract class monster {
         }
     }
 
-    public monster() {
+    public modelMonster() {
         this.name = "Goodoo";
         this.hp = 30;
         this.dmg = 20;
@@ -49,7 +49,7 @@ public abstract class monster {
         this.def = armor;
         this.life = true;
     }
-    public monster(String name, int hp, double dmg, double armor, double def, boolean life){
+    public modelMonster(String name, int hp, double dmg, double armor, double def, boolean life){
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
@@ -58,7 +58,7 @@ public abstract class monster {
         this.life = true;
     }
 
-    public void heroCheckLife(hero h){
+    public void heroCheckLife(modelHero h){
         if (h.getHpHero() <= 0){
             h.setLifeHero(false);
             System.out.println("\n =========> "+getNameMonster()+" a poncé "+h.getNameHero()+",  GAME OVER !");    

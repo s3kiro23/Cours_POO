@@ -1,6 +1,8 @@
 package heros;
 
-public class sentinelle extends hero{
+// import java.util.*;
+
+public class sentinelle extends modelHero{
     String tabardColor;
 
     public sentinelle(){

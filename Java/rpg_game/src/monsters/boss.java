@@ -2,7 +2,7 @@ package monsters;
 
 import java.util.*;
 
-public class boss extends monster{
+public class boss extends modelMonster{
     int buffHP;
     double buffArmor;
 

@@ -2,7 +2,7 @@ package monsters;
 
 import java.util.*;
 
-public class mob extends monster{
+public class mob extends modelMonster{
 
     public String toString(){
         return name+" a "+hp+" PV | "+dmg+" DMG | "+armor+" ARMURE";
@@ -22,8 +22,8 @@ public class mob extends monster{
         String mobsNameRNG = mobsName.get(new Random().nextInt(mobsName.size()));
 
         this.name = mobsNameRNG;
-        this.hp = 30;
-        this.dmg = 20;
+        this.hp = 80;
+        this.dmg = 40;
         this.armor = 5;
         this.def = armor;
         this.life = true;
