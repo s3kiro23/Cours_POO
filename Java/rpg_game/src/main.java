@@ -35,20 +35,20 @@ public class main {
 
     System.out.println("\n-===================================================-\n");
         
-        while (h1.getLifeHero() && m1.getLifeMonster() && (mobsList.size() > 0)){
+        while (h1.getLifeHero() && mobsList.get(0).getLifeMonster() && (mobsList.size() > 0)){
 
         if (round%2 == 1){
 
-            h1.playHero(m1);
+            h1.playHero(mobsList.get(0));
             System.out.println("\n-=======================  Tour "+round+"  ======================-\n");
-            h1.monsterCheckLife(m1);
+            h1.monsterCheckLife(mobsList.get(0));
 
         }
         if (round%2 == 0){
 
-            m1.playMonster(h1);
+            mobsList.get(0).playMonster(h1);
             System.out.println("\n-=======================  Tour "+round+"  ======================-\n");
-            m1.heroCheckLife(h1);
+            mobsList.get(0).heroCheckLife(h1);
 
         }
         round+=1;
