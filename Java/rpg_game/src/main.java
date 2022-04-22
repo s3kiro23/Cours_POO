@@ -3,7 +3,6 @@ import java.util.*;
 import heros.warrior;
 import heros.modelHero;
 import heros.magic;
-import heros.sentinelle;
 import heros.hunt;
 import heros.rogue;
 import monsters.boss;
@@ -13,6 +12,11 @@ import monsters.modelMonster;
 public class main {
     public static void main(String[] args) throws Exception {
 
+    // modelEquipment.randomWeapon();
+    // List<modelEquipment> test = modelEquipment.randomWeapon();
+    // System.out.print(test);
+
+    
     System.out.println("---==== Bienvenue dans le jeu 'Dungeons & Goodoo's ====---\n\n");
 
     
@@ -32,59 +36,68 @@ public class main {
     choice = input.nextInt();
     System.out.println("\n-=======================================================-\n");
 
-    List<modelHero> heroslist = new ArrayList<>();
+    List<modelHero> herosList = new ArrayList<>();
 
-    if (choice == 1){
-        for (int i=0;i<4;i++){
-            heroslist.add(new hunt());
-            heroslist.add(new hunt());
-            heroslist.add(new hunt());
-            heroslist.add(new hunt());
+        if (choice == 1){
+            for (int i=0;i<4;i++){
+                herosList.add(new hunt());
+                herosList.add(new hunt());
+                herosList.add(new hunt());
+                herosList.add(new hunt());
+            }
+            System.out.println("Un héro de classe CHASSEUR a été créé avec les caractéristiques suivantes : \n");
+            System.out.println("-----> "+herosList.get(0));
+            System.out.println("\nEquipement de départ = \n\n> 1 "+herosList.get(0).getHeroWeapon_slot1()+"\n> 1 "+herosList.get(0).getHeroConsumables_slot1());
         }
-        System.out.println("Un héro de classe CHASSEUR a été créé avec les caractéristiques suivantes : \n");
-        System.out.println("-----> "+heroslist.get(0));
-    }
     
-    else if (choice == 2){
-        for (int i=0;i<4;i++){
-            heroslist.add(new rogue());
-            heroslist.add(new rogue());
-            heroslist.add(new rogue());
-            heroslist.add(new rogue());
+        else if (choice == 2){
+            for (int i=0;i<4;i++){
+                herosList.add(new rogue());
+                herosList.add(new rogue());
+                herosList.add(new rogue());
+                herosList.add(new rogue());
+            }
+            System.out.println("Un héro de classe VOLEUR a été créé avec les caractéristiques suivantes : \n");
+            System.out.println("-----> "+herosList.get(0));
+            System.out.println("\nEquipement de départ = \n\n> 1 "+herosList.get(0).getHeroWeapon_slot1()+"\n> 1 "+herosList.get(0).getHeroConsumables_slot1());
         }
-        System.out.println("Un héro de classe VOLEUR a été créé avec les caractéristiques suivantes : \n");
-        System.out.println("-----> "+heroslist.get(0));    }
 
-    else if (choice == 3){
-        for (int i=0;i<4;i++){
-            heroslist.add(new magic());
-            heroslist.add(new magic());
-            heroslist.add(new magic());
-            heroslist.add(new magic());
+        else if (choice == 3){
+            for (int i=0;i<4;i++){
+                herosList.add(new magic());
+                herosList.add(new magic());
+                herosList.add(new magic());
+                herosList.add(new magic());
+            }
+            System.out.println("Un héro de classe MAGE a été créé avec les caractéristiques suivantes : \n");
+            System.out.println("-----> "+herosList.get(0));
+            System.out.println("\nEquipement de départ = \n\n> 1 "+herosList.get(0).getHeroWeapon_slot1()+"\n> 1 "+herosList.get(0).getHeroConsumables_slot1());
+
         }
-        System.out.println("Un héro de classe MAGE a été créé avec les caractéristiques suivantes : \n");
-        System.out.println("-----> "+heroslist.get(0));    }
 
-    else if (choice == 4){
-        for (int i=0;i<4;i++){
-            heroslist.add(new warrior());
-            heroslist.add(new warrior());
-            heroslist.add(new warrior());
-            heroslist.add(new warrior());
+        else if (choice == 4){
+            for (int i=0;i<4;i++){
+                herosList.add(new warrior());
+                herosList.add(new warrior());
+                herosList.add(new warrior());
+                herosList.add(new warrior());
+            }
+            System.out.println("Un héro de classe GUERRIER a été créé avec les caractéristiques suivantes : \n");
+            System.out.println("-----> "+herosList.get(0));
+            System.out.println("\nEquipement de départ = \n\n> 1 "+herosList.get(0).getHeroWeapon_slot1()+"\n> 1 "+herosList.get(0).getHeroConsumables_slot1());
+
         }
-        System.out.println("Un héro de classe GUERRIER a été créé avec les caractéristiques suivantes : \n");
-        System.out.println("-----> "+heroslist.get(0));    }
 
-    else{
-        System.out.println("-========================================================-\n");
-        System.out.println("---==== Merci d'utiliser une valeur entre 1 et 4 seulement pour sélectionner votre héro ! ====---");
-        System.out.println("---==== Choisissez votre type de héro ====---\n");
-        System.out.println("---==== [HUNT]= 1 ");
-        System.out.println("---==== [ROGUE]= 2 ");
-        System.out.println("---==== [MAGIC]= 3 ");
-        System.out.println("---==== [WARRIOR]= 4 ");
-        choice = input.nextInt();
-    }
+        else{
+            System.out.println("-========================================================-\n");
+            System.out.println("---==== Merci d'utiliser une valeur entre 1 et 4 seulement pour sélectionner votre héro ! ====---");
+            System.out.println("---==== Choisissez votre type de héro ====---\n");
+            System.out.println("---==== [HUNT]= 1 ");
+            System.out.println("---==== [ROGUE]= 2 ");
+            System.out.println("---==== [MAGIC]= 3 ");
+            System.out.println("---==== [WARRIOR]= 4 ");
+            choice = input.nextInt();
+        }
 
     System.out.println("\n\n-- Le combat va commencer contre :\n\n");
 
@@ -92,12 +105,12 @@ public class main {
 
     List<modelMonster> mobsList = new ArrayList<>();
 
-    for (int i=0;i<4;i++){
-        mobsList.add(new mob()); 
-    }
-    for (int i=0;i<1;i++){
-        mobsList.add(new boss());
-    }
+        for (int i=0;i<4;i++){
+            mobsList.add(new mob()); 
+        }
+        for (int i=0;i<1;i++){
+            mobsList.add(new boss());
+        }
 
     System.out.println("Le Goodoo Gang qui est composé de "+ (mobsList.size()-1)+" mobs et 1 boss\n");
     System.out.println("Le 1er mob est "+mobsList.get(0));
@@ -106,21 +119,35 @@ public class main {
     System.out.println("\n-===================================================-\n");
     
     // Tour par tour hero/monstre avec vérification des HP comme compteur de fin 
+        
+        while (herosList.get(0).getLifeHero() && (mobsList.size() > 0)){
 
-        while (heroslist.get(0).getLifeHero() && mobsList.get(0).getLifeMonster() && (mobsList.size() > 0)){
+        if (mobsList.get(0).getLifeMonster() == false){
+            mobsList.remove(0);
+            System.out.println();
+        }
 
         if (round%2 == 1){
 
-            heroslist.get(0).playHero(mobsList.get(0));
+            herosList.get(0).playHero(mobsList.get(0));
             System.out.println("\n-=======================  Tour "+round+"  ======================-\n");
-            heroslist.get(0).monsterCheckLife(mobsList.get(0));
+            herosList.get(0).monsterCheckLife(mobsList.get(0)); 
+
+            if (mobsList.get(0).getLifeMonster() == false && mobsList.size() != 0){
+                mobsList.remove(0);
+                herosList.get(0).playHero(mobsList.get(0));
+                System.out.println("\n-=============================================-\n");
+            }
+            else if (mobsList.get(0).getLifeMonster() == false && mobsList.size() == 0){
+                System.out.println("\nPartie terminé ! Votre héro a survécu à la vague !");
+            }      
 
         }
         if (round%2 == 0){
 
-            mobsList.get(0).playMonster(heroslist.get(0));
+            mobsList.get(0).playMonster(herosList.get(0));
             System.out.println("\n-=======================  Tour "+round+"  ======================-\n");
-            mobsList.get(0).heroCheckLife(heroslist.get(0));
+            mobsList.get(0).heroCheckLife(herosList.get(0));
 
         }
         round+=1;

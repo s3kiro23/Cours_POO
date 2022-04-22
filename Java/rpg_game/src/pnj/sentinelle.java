@@ -1,4 +1,6 @@
-package heros;
+package pnj;
+
+import heros.modelHero;
 
 // import java.util.*;
 

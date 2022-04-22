@@ -1,6 +1,10 @@
 package monsters;
 import java.util.*;
 
+import equipments.modelEquipment;
+import equipments.armors.modelArmor;
+import equipments.jelwery.modelJelwery;
+import equipments.weapons.modelWeapon;
 import heros.modelHero;
 
 public abstract class modelMonster {
@@ -10,6 +14,7 @@ public abstract class modelMonster {
     protected double armor;
     protected double def;
     protected boolean life;
+    protected modelEquipment butin;
 
     public String toString(){
         return name+" a "+hp+" PV | "+dmg+" DMG | "+armor+" ARMURE";
@@ -41,14 +46,8 @@ public abstract class modelMonster {
         }
     }
 
-    public modelMonster() {
-        this.name = "Goodoo";
-        this.hp = 30;
-        this.dmg = 20;
-        this.armor = 5;
-        this.def = armor;
-        this.life = true;
-    }
+    public modelMonster() {}
+
     public modelMonster(String name, int hp, double dmg, double armor, double def, boolean life){
         this.name = name;
         this.hp = hp;

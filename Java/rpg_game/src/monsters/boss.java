@@ -5,6 +5,7 @@ import java.util.*;
 public class boss extends modelMonster{
     int buffHP;
     double buffArmor;
+    double buffDmg;
 
     public String toString(){
         return name+" a "+hp+" PV | "+dmg+" DMG | "+armor+" ARMURE";
@@ -28,18 +29,45 @@ public class boss extends modelMonster{
         this.name = bossNameRNG;
         this.buffHP = 200;
         this.buffArmor = 10;
+        this.buffDmg = 80;
         this.hp = 60 + this.buffHP;
-        this.dmg = 20;
+        this.dmg = 20 + this.buffDmg;
         this.armor = 10 + this.buffArmor;
         this.def = armor;
         this.life = true;
         this.buffHP = 200;
     }
 
-    public boss(String name, int hp, double dmg, double armor, double def, boolean life, int buffHP, double buffArmor){
+    public boss(String name, int hp, double dmg, double armor, double def, boolean life, int buffHP, double buffDmg, double buffArmor){
         super(name, hp, dmg, armor, def, life);
         this.buffHP = buffHP;
         this.hp = this.buffHP + this.hp;
         this.armor = this.buffArmor + this.armor;
+        this.dmg = this.buffDmg + this.dmg;
     }
+
+    public int getBuffHP(){
+        return this.buffHP;
+    }
+
+    public double getBuffDmg(){
+        return this.buffDmg;
+    }
+
+    public double getBuffArmor(){
+        return this.buffArmor;
+    }
+
+    public void setBuffHP(int buffHP){
+        this.buffHP = buffHP;
+    }
+
+    public void setBuffDmg(double buffDmg){
+        this.buffDmg = buffDmg;
+    }
+
+    public void setBuffArmor(double buffArmor){
+        this.buffArmor = buffArmor;
+    }
+    
 }
