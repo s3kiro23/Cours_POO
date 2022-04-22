@@ -3,6 +3,7 @@ package heros;
 import java.util.*;
 
 import equipments.modelEquipment;
+import equipments.armors.modelArmor;
 import equipments.consumables.modelconso;
 import equipments.consumables.potSoin;
 import equipments.weapons.modelWeapon;
@@ -64,7 +65,7 @@ public class warrior extends modelHero {
 
     public warrior(String name, int hp, double dmg, int rage, double armor, double def, boolean life, int level, double xp, 
     modelWeapon weapon_slot1, modelWeapon weapon_slot2, 
-    modelWeapon armor_slot1, modelWeapon armor_slot2, modelWeapon armor_slot3, 
+    modelArmor armor_slot1, modelWeapon armor_slot2, modelWeapon armor_slot3, 
     modelWeapon armor_slot4, modelWeapon armor_slot5, modelWeapon armor_slot6, modelWeapon armor_slot7, 
     modelWeapon jelwery_slot1, modelWeapon jelwery_slot2, modelWeapon jelwery_slot3,
     modelWeapon consumables_slot1, modelWeapon consumables_slot2, modelWeapon consumables_slot3){

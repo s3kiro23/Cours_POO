@@ -40,6 +40,10 @@ public abstract class modelEquipment {
         return 0;
     }
 
+    public double getModelWeaponDPS(){
+        return 0;
+    }
+
     public void setModelEquipmentName(String name){
         this.name = name;
     }
