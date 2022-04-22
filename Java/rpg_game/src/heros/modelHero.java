@@ -286,12 +286,6 @@ public abstract class modelHero {
         this.consumable_slot3 = consumable_slot3;
     }
 
-
-
-
-
-
-
     public void setNameHero(String name){
         this.name = name;
     }

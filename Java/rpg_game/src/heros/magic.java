@@ -7,7 +7,6 @@ import equipments.consumables.potSoin;
 import equipments.jelwery.modelJelwery;
 import equipments.weapons.modelWeapon;
 import equipments.weapons.staff;
-import equipments.*;
 import equipments.armors.modelArmor;
 
 public class magic extends modelHero {
