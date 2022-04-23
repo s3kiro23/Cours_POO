@@ -2,6 +2,8 @@ package heros;
 
 import java.util.*;
 
+import javax.swing.text.LabelView;
+
 import equipments.armors.modelArmor;
 import equipments.consumables.modelconso;
 import equipments.jelwery.modelJelwery;
@@ -12,11 +14,13 @@ public abstract class modelHero {
     protected String name;
     protected int hp;
     protected double dmg;
+    protected double dmgweapon;
     protected double armor;
     protected double def;
     protected boolean life;
     protected int level;
     protected double xp;
+    protected int rage;
     protected modelWeapon weapon_slot1;
     protected modelWeapon weapon_slot2;
     protected modelconso consumable_slot1;
@@ -38,7 +42,7 @@ public abstract class modelHero {
 
     public modelHero(){}
 
-    public modelHero(String name, int hp, double dmg, double armor, double def, boolean life, int level, double xp,
+    public modelHero(String name, int hp, double dmg, double armor, double def, boolean life, int level, double xp, int rage,
     modelWeapon weapon_slot1, modelWeapon weapon_slot2, 
     modelArmor armor_slot1, modelArmor armor_slot2, modelArmor armor_slot3, 
     modelArmor armor_slot4, modelArmor armor_slot5, modelArmor armor_slot6, modelArmor armor_slot7, 
@@ -52,6 +56,7 @@ public abstract class modelHero {
         this.life = true;
         this.level = level;
         this.xp = xp;
+        this.rage = rage;
         this.weapon_slot1 = weapon_slot1;
         this.weapon_slot2 = weapon_slot2;
         this.armor_slot1 = armor_slot1;
@@ -69,31 +74,37 @@ public abstract class modelHero {
         this.consumable_slot3 = consumables_slot3;
     }
 
-    // Affichage caractéristiques des personnages
+    // Affichage caractéristiques du personnage
 
     public String toString(){
-        return name+" ["+level+"] "+" a "+hp+" PV | "+dmg+" DMG | "+armor+" ARMURE"+" | "+xp+" XP ";
+        return name+" de niveau ["+level+"] "+" avec "+hp+" PV | "+dmg+" de dégats | "+armor+" d'armure"+" | "+xp+" d'XP ";
     }
 
-    // Méthodes 'attaquer' du héro
+    // Méthode 'attaquer' du héro
 
     public void attackHero(modelMonster m){
             this.armor = this.def;
-            double dmgHero = m.getHpMonster()-(this.getDmgHero()-m.getArmorMonster());
+            double dmgHero = m.getHpMonster()-((this.getDmgHero()+this.getDmgWeaponHero())-m.getArmorMonster());
+            if (dmgHero < 0){
+                dmgHero=0;
+            }
             m.setHpMonster((int) dmgHero);
-            System.out.println("\n"+getNameHero()+" attaque "+m.getNameMonster()+" et lui inflige "+(this.getDmgHero()-m.getArmorMonster())+" DMG \n");
+            int rageHeroLost = 20;
+            this.setRageHero(this.getRageHero() - rageHeroLost); 
+            System.out.println("\n"+getNameHero()+" attaque "+m.getNameMonster()+" en lui infligeant "+(this.getDmgHero()-m.getArmorMonster())+" de dégats et perd "+rageHeroLost+" points de rage\n");
             System.out.println(m);
 
     }
 
-    // Méthodes 'parrer' du héro
+    // Méthode 'parrer' du héro
 
     public void parryHero(){
         this.armor = this.def*2;
+        this.setRageHero(this.getRageHero() + 20);
         System.out.println("\n"+getNameHero()+" se prépare à parer la prochaine attaque, son armure augmente !  "+"+ "+(getArmorHero()/2)+" ARMURE");
     }
 
-    // Méthodes 'use potion' du héro
+    // Méthode 'use potion' du héro
 
     public void usePotionHero(){
 
@@ -106,28 +117,55 @@ public abstract class modelHero {
 
     public void playHero(modelMonster m){
 
-        System.out.println("\n---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  ou [UTILISER POTION]= 3 : ");
-        Scanner input = new Scanner(System.in);
-        int choice = input.nextInt();
-        System.out.println("\n-=======================================================-");
-        
-            if (choice == 1){
-                attackHero(m);
-            }
-        
-            else if (choice == 2){
-                parryHero();
-            }
 
-            else if (choice == 3){
-                usePotionHero();
-            }
+            if (this.consumable_slot1 != null){
+                System.out.println("\n---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  ou [UTILISER POTION]= 3 : ");
+                Scanner input = new Scanner(System.in);
+                int choice = input.nextInt();
+                System.out.println("\n-=======================================================-");        
 
-            else{
-                System.out.println("-========================================================-");
-                System.out.println("---==== Merci d'utiliser 1 ou 2 pour continuer ! ====---");
-                System.out.println("---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  :");
-                choice = input.nextInt();
+                if (choice == 1){
+                    attackHero(m);
+                }
+            
+                else if (choice == 2){
+                    parryHero();
+                }
+    
+                else if (choice == 3){
+                    usePotionHero();
+                }
+    
+                else{
+
+                    System.out.println("-========================================================-");
+                    System.out.println("---==== Merci d'utiliser 1 ou 2 pour continuer ! ====---");
+                    System.out.println("---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  :");
+                    choice = input.nextInt();
+                }
+    
+            }
+        
+            if (this.consumable_slot1 == null){
+                System.out.println("\n---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2 : ");
+                Scanner input = new Scanner(System.in);
+                int choice = input.nextInt();
+                System.out.println("\n-=======================================================-");
+                
+                if (choice == 1){
+                    attackHero(m);
+                }
+            
+                else if (choice == 2){
+                    parryHero();
+                }
+    
+                else{
+                    System.out.println("-========================================================-");
+                    System.out.println("---==== Merci d'utiliser 1 ou 2 pour continuer ! ====---");
+                    System.out.println("---==== Choisissez votre action [ATTAQUER]= tapez 1 ou [PARER]= tapez 2  :");
+                    choice = input.nextInt();
+                }
             }
         }
 
@@ -136,7 +174,13 @@ public abstract class modelHero {
     public void monsterCheckLife(modelMonster m){
         if (m.getHpMonster() <= 0){
             m.setLifeMonster(false);
-            System.out.println("\n =========> "+getNameHero()+" a poncé "+m.getNameMonster()+",  LVL UP !");    
+            System.out.println("\n=========> "+getNameHero()+" a poncé "+m.getNameMonster()+" et gagne un level ! ===>  + 10 HP | + 5 dégats | + 5 armures");
+            this.setLevelHero(this.getLevelHero() + 1);
+            this.setHpHero(this.getHpHero() + 10);
+            this.setDmgHero(this.getDmgHero() + 5);
+            this.setArmorHero(this.getArmorHero() + 5); 
+            System.out.println("Nouvelles stats pour le héro : "+"Level = "+this.getLevelHero()+" | "+"HP = "+this.getHpHero()+" | "+"DMG = "+this.getDmgHero()+" | "+" ARMURE = "+this.getArmorHero());
+            // System.out.println("Le mob avait + "++" dans son sac à butin ! ");  
         }
     }
 
@@ -151,7 +195,11 @@ public abstract class modelHero {
     }
 
     public double getDmgHero(){
-        return this.dmg = this.dmg + weapon_slot1.getModelWeaponDPS();
+        return this.dmg;
+    }
+
+    public double getDmgWeaponHero(){
+        return this.dmgweapon;
     }
 
     public double getArmorHero(){
@@ -164,6 +212,14 @@ public abstract class modelHero {
 
     public boolean getLifeHero(){
         return this.life;
+    }
+
+    public int getLevelHero(){
+        return this.level;
+    }
+
+    public double getXPHero(){
+        return this.xp;
     }
 
     public modelWeapon getHeroWeapon_slot1(){
@@ -224,6 +280,10 @@ public abstract class modelHero {
 
     public modelconso getHeroConsumables_slot3(){
         return this.consumable_slot3;
+    }
+
+    public int getRageHero(){
+        return this.rage;
     }
 
     public void setHeroWeapon_slot1(modelWeapon weapon_slot1){
@@ -297,6 +357,10 @@ public abstract class modelHero {
         this.dmg = dmg;
     }
 
+    public void setDmgWeaponHero(double dmgweapon){
+        this.dmgweapon = dmg;
+    }
+
     public void setArmorHero(double armor){
         this.armor = armor;
     }
@@ -307,6 +371,18 @@ public abstract class modelHero {
 
     public void setLifeHero(boolean life){
         this.life = life;
+    }
+
+    public void setLevelHero(int level){
+        this.level=level;
+    }
+
+    public void setXPHero(double xp){
+        this.xp = xp;
+    }
+
+    public void setRageHero( int rage){
+        this.rage = rage;
     }
 
 }

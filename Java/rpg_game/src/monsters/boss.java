@@ -2,6 +2,8 @@ package monsters;
 
 import java.util.*;
 
+import equipments.modelEquipment;
+
 public class boss extends modelMonster{
     int buffHP;
     double buffArmor;
@@ -35,11 +37,12 @@ public class boss extends modelMonster{
         this.armor = 10 + this.buffArmor;
         this.def = armor;
         this.life = true;
+        // this.butin =
         this.buffHP = 200;
     }
 
-    public boss(String name, int hp, double dmg, double armor, double def, boolean life, int buffHP, double buffDmg, double buffArmor){
-        super(name, hp, dmg, armor, def, life);
+    public boss(String name, int hp, double dmg, double armor, double def, boolean life, modelEquipment butin, int buffHP, double buffDmg, double buffArmor){
+        super(name, hp, dmg, armor, def, life, butin);
         this.buffHP = buffHP;
         this.hp = this.buffHP + this.hp;
         this.armor = this.buffArmor + this.armor;

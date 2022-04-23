@@ -124,7 +124,6 @@ public class main {
 
         if (mobsList.get(0).getLifeMonster() == false){
             mobsList.remove(0);
-            System.out.println();
         }
 
         if (round%2 == 1){
@@ -132,6 +131,8 @@ public class main {
             herosList.get(0).playHero(mobsList.get(0));
             System.out.println("\n-=======================  Tour "+round+"  ======================-\n");
             herosList.get(0).monsterCheckLife(mobsList.get(0)); 
+
+            // Fin de partie après avoir supprimé le dernier mob de la liste
 
             if (mobsList.get(0).getLifeMonster() == false && mobsList.size() != 0){
                 mobsList.remove(0);

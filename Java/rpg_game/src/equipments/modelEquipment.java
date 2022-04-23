@@ -2,6 +2,9 @@ package equipments;
 
 import java.util.*;
 
+import equipments.armors.modelArmor;
+import equipments.consumables.modelconso;
+import equipments.jelwery.modelJelwery;
 import equipments.weapons.modelWeapon;
 
 public abstract class modelEquipment {
@@ -11,14 +14,22 @@ public abstract class modelEquipment {
 
     // Génération d'équipement aléatoire
 
-    // public static List<modelEquipment> randomWeapon(){
+    // public static List<modelEquipment> randomEquipments(){
 
-    //     List<modelEquipment> randomWeaponList = new ArrayList<>();
+    //     List<modelEquipment> randomEquipmentList = new ArrayList<>();
         
     //     for (int i=0;i<10;i++){
-    //         randomWeaponList.add(new modelWeapon());
+    //         randomEquipmentList.add(new modelWeapon());
     //     }
-    //     return randomWeaponList;
+    //     for (int i=0;i<10;i++){
+    //         randomEquipmentList.add(new modelconso());
+    //     }
+    //     for (int i=0;i<10;i++){
+    //         randomEquipmentList.add(new modelArmor());
+    //     }
+
+    //     modelEquipment EquipementRand = randomEquipmentList.get(new Random().nextInt(randomEquipmentList.size()));
+    //     return EquipementRand;
     // }
 
     public modelEquipment(){}
@@ -36,9 +47,9 @@ public abstract class modelEquipment {
         return this.durability;
     }
 
-    public int getPool(){
-        return 0;
-    }
+    // public int getPool(){
+    //     return 0;
+    // }
 
     public double getModelWeaponDPS(){
         return 0;

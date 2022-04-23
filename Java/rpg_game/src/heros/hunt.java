@@ -8,7 +8,6 @@ import equipments.consumables.potSoin;
 import equipments.jelwery.modelJelwery;
 import equipments.weapons.bow;
 import equipments.weapons.crossbow;
-import equipments.weapons.modelWeapon;
 
 public class hunt extends modelHero {
     int focus;
@@ -63,19 +62,19 @@ public class hunt extends modelHero {
 
     }
 
-    public hunt(String name, int hp, double dmg, int focus, double armor, double def, boolean life, int level, double xp, 
-    modelWeapon weapon_slot1, modelWeapon weapon_slot2, 
-    modelArmor armor_slot1, modelArmor armor_slot2, modelArmor armor_slot3, 
-    modelArmor armor_slot4, modelArmor armor_slot5, modelArmor armor_slot6, modelArmor armor_slot7, 
-    modelJelwery jelwery_slot1, modelJelwery jelwery_slot2, modelJelwery jelwery_slot3,
-    modelconso consumables_slot1, modelconso consumables_slot2, modelconso consumables_slot3){
-        super(name, hp, dmg, armor, def, life, level, xp,
-        weapon_slot1, weapon_slot2, 
-        armor_slot1, armor_slot2, armor_slot3, armor_slot4, armor_slot5, armor_slot6, armor_slot7, 
-        jelwery_slot1, jelwery_slot2, jelwery_slot3, 
-        consumables_slot1, consumables_slot2, consumables_slot3);
-        this.focus = focus;
-    }
+    // public hunt(String name, int hp, double dmg, int focus, double armor, double def, boolean life, int level, double xp, 
+    // modelWeapon weapon_slot1, modelWeapon weapon_slot2, 
+    // modelArmor armor_slot1, modelArmor armor_slot2, modelArmor armor_slot3, 
+    // modelArmor armor_slot4, modelArmor armor_slot5, modelArmor armor_slot6, modelArmor armor_slot7, 
+    // modelJelwery jelwery_slot1, modelJelwery jelwery_slot2, modelJelwery jelwery_slot3,
+    // modelconso consumables_slot1, modelconso consumables_slot2, modelconso consumables_slot3){
+    //     super(name, hp, dmg, armor, def, life, level, xp,
+    //     weapon_slot1, weapon_slot2, 
+    //     armor_slot1, armor_slot2, armor_slot3, armor_slot4, armor_slot5, armor_slot6, armor_slot7, 
+    //     jelwery_slot1, jelwery_slot2, jelwery_slot3, 
+    //     consumables_slot1, consumables_slot2, consumables_slot3);
+    //     this.focus = focus;
+    // }
 
     // Accesseurs
 

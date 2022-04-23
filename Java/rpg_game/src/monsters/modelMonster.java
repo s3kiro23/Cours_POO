@@ -23,8 +23,11 @@ public abstract class modelMonster {
     public void attackMonster(modelHero h){
         this.armor = this.def;
         double dmgMonster = h.getHpHero()-(this.getDmgMonster()-h.getArmorHero());
+        if (dmgMonster < 0){
+            dmgMonster=0;
+        }
         h.setHpHero((int) dmgMonster);
-        System.out.println(getNameMonster()+" attaque "+h.getNameHero()+" et lui inflige "+(this.getDmgMonster()-h.getArmorHero())+" DMG \n");
+        System.out.println(getNameMonster()+" attaque "+h.getNameHero()+" et lui inflige "+(this.getDmgMonster()-h.getArmorHero())+" de dégats \n");
         System.out.println(h);
     }
 
@@ -48,13 +51,14 @@ public abstract class modelMonster {
 
     public modelMonster() {}
 
-    public modelMonster(String name, int hp, double dmg, double armor, double def, boolean life){
+    public modelMonster(String name, int hp, double dmg, double armor, double def, boolean life, modelEquipment butin){
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
         this.armor = armor;
         this.def = armor;
         this.life = true;
+        this.butin = butin;
     }
 
     public void heroCheckLife(modelHero h){
@@ -88,6 +92,10 @@ public abstract class modelMonster {
         return this.life;
     }
 
+    public modelEquipment getButinMonster(){
+        return this.butin;
+    }
+
     public void setNameMonster(String name){
         this.name = name;
     }
@@ -110,5 +118,9 @@ public abstract class modelMonster {
 
     public void setLifeMonster(boolean life){
         this.life = life;
+    }
+
+    public void setButinMonster(modelEquipment butin){
+        this.butin = butin;
     }
 }
