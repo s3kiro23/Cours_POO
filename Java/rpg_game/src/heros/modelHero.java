@@ -358,7 +358,7 @@ public abstract class modelHero {
     }
 
     public void setDmgWeaponHero(double dmgweapon){
-        this.dmgweapon = dmg;
+        this.dmgweapon = dmgweapon;
     }
 
     public void setArmorHero(double armor){

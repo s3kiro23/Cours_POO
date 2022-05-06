@@ -39,7 +39,7 @@ public class warrior extends modelHero {
 
         this.hp = 170;
         this.dmg = 55;
-        this.dmgweapon = 20;
+        this.dmgweapon = getDmgHero();
         this.rage = 100;
         this.armor = 20;
         this.def = armor;

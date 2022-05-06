@@ -1,5 +1,6 @@
 import java.util.*;
 
+import equipments.weapons.modelWeapon;
 import heros.warrior;
 import heros.modelHero;
 import heros.magic;
@@ -128,6 +129,7 @@ public class main {
 
         if (round%2 == 1){
 
+            System.out.println(herosList.get(0).getDmgHero()+" "+herosList.get(0).getHeroWeapon_slot1()+" "+herosList.get(0).getDmgWeaponHero());
             herosList.get(0).playHero(mobsList.get(0));
             System.out.println("\n-=======================  Tour "+round+"  ======================-\n");
             herosList.get(0).monsterCheckLife(mobsList.get(0)); 
