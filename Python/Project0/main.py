@@ -48,7 +48,5 @@ def main():
         print('Opération annulée')
 
 
-
-
 if __name__ == "__main__":
     main()
