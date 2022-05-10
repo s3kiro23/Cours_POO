@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<h1
+class="bg-blue-500 text-5xl text-center m-3 p-3 hover:text-green-500 border-r-50"
+>
+Bienvenue {{ user }} !
+</h1>
+<h2 class="text-center m-4">Tu as {{ user.age }} ans et {{ data }}</h2>
+
+
+{% endblock %}
