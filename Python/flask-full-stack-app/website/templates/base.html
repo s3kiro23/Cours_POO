@@ -11,16 +11,20 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-<nav class="bg-blue-500 px-12 py-3 flex text-lg">
+<nav class="bg-indigo-600 px-12 py-3 flex text-lg">
     <div class="flex flex-grow gap-5">
-        <a href="/" class="hover:text-green-500">Home</a>
-        <a href="/login" class="hover:text-green-500">Login</a>
-        <a href="/signup" class="hover:text-green-500">Sign Up</a>
+        {% if user.is_authenticated %}
+            <a href="/" class="text-white hover:text-green-500">Home</a>
+            <a href="/logout" class="text-white hover:text-green-500">Logout</a>
+        {% else %}
+            <a href="/login" class="text-white hover:text-green-500">Login</a>
+            <a href="/signup" class="text-white hover:text-green-500">Sign up</a>
+        {% endif %}
     </div>
     <div
-            class="transition ease-in delay-75 hover:uppercase hover:font-bold hover:text-orange-500 duration-200"
+            class="text-white transition ease-in delay-75 hover:uppercase hover:font-bold hover:text-orange-500 duration-200"
     >
-        <span>{{ user }}</span>
+        <span>{{ current_user.nom }}</span>
     </div>
 </nav>
 
@@ -80,18 +84,18 @@
 
 <div class="container mx-auto">{% block content %} {% endblock %}</div>
 
-<footer class="justify-center bg-blue-500 px-12 py-3 flex text-lg">
+<footer class="justify-center bg-indigo-600 px-12 py-3 flex text-lg">
     <div class="flex flex-grow">
         <a
                 href="https://www.aflokkat.com/"
-                class="hover:text-green-500"
+                class="text-white hover:text-green-500"
                 target="_blank"
         >© Copyright</a
         >
     </div>
     <nav class="flex gap-5">
-        <a href="/contact" class="hover:text-green-500">Contact</a>
-        <a href="/apropos" class="hover:text-green-500">A propos</a>
+        <a href="/contact" class="text-white hover:text-green-500">Contact</a>
+        <a href="/apropos" class="text-white hover:text-green-500">À propos</a>
     </nav>
 </footer>
 </body>

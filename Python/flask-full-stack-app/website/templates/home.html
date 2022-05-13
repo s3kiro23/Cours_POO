@@ -5,11 +5,12 @@
 {% block content %}
 
 <h1
-class="bg-blue-500 text-5xl text-center m-3 p-3 hover:text-green-500 border-r-50"
+        class="text-white bg-blue-500 text-5xl text-center m-3 p-3 hover:text-green-500 border-r-50"
 >
-Bienvenue {{ user }} !
+    Bienvenue {{current_user.nom}} !
 </h1>
-<h2 class="text-center m-4">Tu as {{ user.age }} ans et {{ data }}</h2>
+<h2 class="text-center m-4">Ton adresse mail est {{current_user.email}} </h2>
+<p class="text-center m-4">Ton mot de passe est : {{current_user.password}}</p>
 
 
 {% endblock %}

@@ -1,27 +1,21 @@
 from flask import Blueprint, render_template
+from .models import User
+from flask_login import login_required, current_user
 
 views = Blueprint("views", __name__)
 
 
 @views.route("/")
+@login_required
 def hello():
-    class User:
-        def __init__(self):
-            self.nom = "Sekiro"
-            self.age = 46
-
-        def __repr__(self):
-            return f"Sekiro"
-
-    sekiro = User()
-    return render_template("home.html", user=sekiro, data="ton âme est dans la tourmente...")
+    return render_template("home.html", user=current_user)
 
 
 @views.route("/contact")
 def contact():
-    return render_template("contact.html")
+    return render_template("contact.html", user=current_user)
 
 
 @views.route("/apropos")
 def apropos():
-    return render_template("apropos.html")
+    return render_template("apropos.html", user=current_user)
