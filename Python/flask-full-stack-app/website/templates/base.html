@@ -84,6 +84,7 @@
 
 <div class="container mx-auto">{% block content %} {% endblock %}</div>
 
+{% if user.is_authenticated %}
 <footer class="justify-center bg-indigo-600 px-12 py-3 flex text-lg">
     <div class="flex flex-grow">
         <a
@@ -98,5 +99,6 @@
         <a href="/apropos" class="text-white hover:text-green-500">À propos</a>
     </nav>
 </footer>
+{% endif %}
 </body>
 </html>

@@ -36,6 +36,8 @@ def signup():
     if request.method == "POST":
         nom = request.form.get("nom")
         email = request.form.get("email")
+        secret_question = request.form.get("secret_question")
+        secret_response = request.form.get("secret_response")
         password = request.form.get("password")
         password2 = request.form.get("password2")
         user = User.query.filter_by(email=email).first()
@@ -44,7 +46,8 @@ def signup():
             return render_template("signup.html", user=current_user)
         else:
             if password == password2:
-                new_user = User(nom=nom, email=email, password=generate_password_hash(password, method="sha256"))
+                new_user = User(nom=nom, email=email, secret_question=secret_question, secret_response=secret_response,
+                                password=generate_password_hash(password, method="sha256"))
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user)
@@ -61,20 +64,29 @@ def logout():
     return redirect(url_for("auth.login"))
 
 
-@auth.route("/forgot-pwd")
+@auth.route("/forgot-pwd", methods=["GET", "POST"])
 def forgot_pwd():
     if request.method == "POST":
         email = request.form.get("email")
-        password = request.form.get("password")
+        secret_question = request.form.get("secret_question")
+        secret_response = request.form.get("secret_response")
+        new_password = request.form.get("password")
         user = User.query.filter_by(email=email).first()
         if user:
-            if check_password_hash(user.password, password):
-                flash("Connexion réussi !", category="success")
-                return redirect(url_for("views.hello"))
+            if secret_question == user.secret_question:
+                if secret_response == user.secret_response:
+                    user.password = generate_password_hash(new_password, method="sha256")
+                    db.session.commit()
+                    flash("Récupération du compte réussi !", category="success")
+                    return redirect(url_for("auth.login"))
+                else:
+                    flash("Cette réponse n'est pas valide pour cet utilisateur !", category="denied")
+                return render_template("forgot-pwd.html", user=current_user)
             else:
-                flash("Mauvais mot de passe !", category="denied")
+                flash("Cette question n'existe pas pour cet utilisateur !", category="denied")
+            return render_template("forgot-pwd.html", user=current_user)
         else:
             flash("Compte utilisateur inexistant !", category="denied")
-        return render_template("login.html", user=current_user)
+        return render_template("forgot-pwd.html", user=current_user)
 
     return render_template("forgot-pwd.html", user=current_user)
