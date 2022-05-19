@@ -24,7 +24,7 @@
     <div
             class="text-white transition ease-in delay-75 hover:uppercase hover:font-bold hover:text-orange-500 duration-200"
     >
-        <span>{{ current_user.nom }}</span>
+        <a href="/profile"><span>{{ current_user.nom }}</span></a>
     </div>
 </nav>
 
@@ -82,7 +82,7 @@
 {% endwith %}
 
 
-<div class="container mx-auto">{% block content %} {% endblock %}</div>
+<div class="container mx-auto my-auto">{% block content %} {% endblock %}</div>
 
 {% if user.is_authenticated %}
 <footer class="justify-center bg-indigo-600 px-12 py-3 flex text-lg">

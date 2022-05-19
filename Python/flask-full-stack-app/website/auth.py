@@ -51,7 +51,7 @@ def signup():
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user)
-                flash("Compte créé avec succés !", category="success")
+                flash("Compte créé avec succès !", category="success")
                 return redirect(url_for("views.hello", user=current_user))
             flash("Les mots de passe ne correspondent pas !", category="denied")
     return render_template("signup.html", user=current_user)
@@ -62,6 +62,40 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for("auth.login"))
+
+
+@auth.route("/profile")
+@login_required
+def profile():
+    return render_template("profile.html", user=current_user)
+
+
+@auth.route("/change_profile", methods=["GET", "POST"])
+@login_required
+def change_profile():
+    if request.method == "POST":
+        nom = request.form.get("nom")
+        email = request.form.get("email")
+        secret_question = request.form.get("secret_question")
+        secret_response = request.form.get("secret_response")
+        new_password = request.form.get("password")
+        new_password2 = request.form.get("password2")
+        # email_check = User.query.filter_by(email=email).first()
+        print(f"{nom}, {email}, {new_password}, {new_password2}")
+        if email == current_user.email:
+            flash("Cette adresse mail existe déjà !", category="denied")
+            return render_template("change_profile.html", user=current_user)
+        if new_password == new_password2:
+            current_user.nom = nom
+            current_user.email = email
+            current_user.secret_question = secret_question
+            current_user.secret_response = secret_response
+            current_user.password = generate_password_hash(new_password, method="sha256")
+            db.session.commit()
+            flash("Modification des données réalisée avec succès !", category="success")
+            return redirect(url_for("auth.profile", user=current_user))
+        flash("Les mots de passe ne correspondent pas !", category="denied")
+    return render_template("change_profile.html", user=current_user)
 
 
 @auth.route("/forgot-pwd", methods=["GET", "POST"])
