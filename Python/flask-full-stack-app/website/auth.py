@@ -68,25 +68,58 @@ def logout():
 def forgot_pwd():
     if request.method == "POST":
         email = request.form.get("email")
-        secret_question = request.form.get("secret_question")
+        secret_value = request.form.get('secret_value')
+        secret_value2 = request.form.get('secret_value2')
         secret_response = request.form.get("secret_response")
         new_password = request.form.get("password")
-        user = User.query.filter_by(email=email).first()
-        if user:
-            if secret_question == user.secret_question:
+        new_password2 = request.form.get("password2")
+        # secret_question = request.form.get("secret_question")
+        # user = User.query.filter_by(email=email).first()
+        print(f"{email}, {secret_value}, {secret_value2}, {secret_response}, {new_password}, {new_password2}")
+        if email:
+            user = User.query.filter_by(email=email).first()
+            if user:
+                return render_template("forgot-pwd.html", user=current_user, secret_question=user.secret_question,
+                                       email=user.email)
+            flash("Ce compte n'existe pas !", category="denied")
+        if secret_value:
+            user = User.query.filter_by(email=secret_value).first()
+            if user:
                 if secret_response == user.secret_response:
+                    return render_template("forgot-pwd.html", user=current_user, secret_response=user.secret_response,
+                                           email=user.email)
+                flash("Cette réponse n'est pas valide pour l'utilisateur !", category="denied")
+                return render_template("forgot-pwd.html", user=current_user, secret_question=user.secret_question,
+                                       email=user.email)
+            return render_template("forgot-pwd.html", user=current_user)
+        if secret_value2:
+            user = User.query.filter_by(email=secret_value2).first()
+            if user:
+                if new_password == new_password2:
                     user.password = generate_password_hash(new_password, method="sha256")
                     db.session.commit()
                     flash("Récupération du compte réussi !", category="success")
                     return redirect(url_for("auth.login"))
-                else:
-                    flash("Cette réponse n'est pas valide pour cet utilisateur !", category="denied")
-                return render_template("forgot-pwd.html", user=current_user)
-            else:
-                flash("Cette question n'existe pas pour cet utilisateur !", category="denied")
-            return render_template("forgot-pwd.html", user=current_user)
-        else:
-            flash("Compte utilisateur inexistant !", category="denied")
-        return render_template("forgot-pwd.html", user=current_user)
-
     return render_template("forgot-pwd.html", user=current_user)
+
+    #     if user:
+    #         if secret_question == user.secret_question:
+    #             if secret_response == user.secret_response:
+    #                 if new_password == new_password2:
+    #                     user.password = generate_password_hash(new_password, method="sha256")
+    #                     db.session.commit()
+    #                     flash("Récupération du compte réussi !", category="success")
+    #                     return redirect(url_for("auth.login"))
+    #                 else:
+    #                     flash("Les mots de passe ne correspondent pas !", category="denied")
+    #                     return render_template("forgot-pwd.html", user=current_user)
+    #             else:
+    #                 flash("Cette réponse n'est pas valide pour cet utilisateur !", category="denied")
+    #             return render_template("forgot-pwd.html", user=current_user)
+    #         else:
+    #             flash("Cette question n'existe pas pour cet utilisateur !", category="denied")
+    #         return render_template("forgot-pwd.html", user=current_user)
+    #     else:
+    #         flash("Compte utilisateur inexistant !", category="denied")
+    #     return render_template("forgot-pwd.html", user=current_user)
+    # return render_template("forgot-pwd.html", user=current_user)
