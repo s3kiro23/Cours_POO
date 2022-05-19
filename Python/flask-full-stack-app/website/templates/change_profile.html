@@ -16,13 +16,15 @@ content %}
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
                                 <input type="text" name="nom" id="nom" autocomplete="nom"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       placeholder="{{ current_user.nom }}">
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                                 <input type="email" name="email" id="email" autocomplete="family-name"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       placeholder="{{ current_user.email }}">
                             </div>
 
                             <div class="col-span-3 lg:col-span-2">
@@ -44,7 +46,8 @@ content %}
                                 <label for="secret_response" class="block text-sm font-medium text-gray-700">Réponse
                                     secrète</label>
                                 <input type="text" name="secret_response" id="secret_response" autocomplete="text"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       placeholder="{{ current_user.secret_response }}">
                             </div>
                             <br>
                             <div class="col-span-3 lg:col-span-2">
@@ -52,7 +55,8 @@ content %}
                                     passe</label>
                                 <input type="password" name="password" id="password"
                                        autocomplete="password"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       >
                             </div>
 
                             <div class="col-span-6 sm:col-span-6 lg:col-span-2">

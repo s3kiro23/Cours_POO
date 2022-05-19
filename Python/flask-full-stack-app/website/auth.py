@@ -74,7 +74,7 @@ def profile():
 @login_required
 def change_profile():
     if request.method == "POST":
-        nom = request.form.get("nom")
+        nom = request.form.get("nom") or None
         email = request.form.get("email")
         secret_question = request.form.get("secret_question")
         secret_response = request.form.get("secret_response")
@@ -86,10 +86,19 @@ def change_profile():
             flash("Cette adresse mail existe déjà !", category="denied")
             return render_template("change_profile.html", user=current_user)
         if new_password == new_password2:
+            if nom is None:
+                current_user.nom = current_user.nom
             current_user.nom = nom
+            if email is None:
+                pass
             current_user.email = email
+            if secret_question == "-- Choisissez une question --":
+                pass
             current_user.secret_question = secret_question
+            if secret_response is None:
+                pass
             current_user.secret_response = secret_response
+
             current_user.password = generate_password_hash(new_password, method="sha256")
             db.session.commit()
             flash("Modification des données réalisée avec succès !", category="success")
