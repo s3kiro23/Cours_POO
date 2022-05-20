@@ -70,41 +70,53 @@ def profile():
     return render_template("profile.html", user=current_user)
 
 
-@auth.route("/change_profile", methods=["GET", "POST"])
+@auth.route("/change_profile/<champ>", methods=["GET", "POST"])
 @login_required
-def change_profile():
+def change_profile(champ):
     if request.method == "POST":
-        nom = request.form.get("nom") or None
+        nom = request.form.get("nom")
         email = request.form.get("email")
         secret_question = request.form.get("secret_question")
         secret_response = request.form.get("secret_response")
         new_password = request.form.get("password")
         new_password2 = request.form.get("password2")
+        user_description = request.form.get("user_description")
         # email_check = User.query.filter_by(email=email).first()
         print(f"{nom}, {email}, {new_password}, {new_password2}")
-        if email == current_user.email:
-            flash("Cette adresse mail existe déjà !", category="denied")
-            return render_template("change_profile.html", user=current_user)
-        if new_password == new_password2:
-            if nom is None:
-                current_user.nom = current_user.nom
+        if champ == "nom":
             current_user.nom = nom
-            if email is None:
-                pass
-            current_user.email = email
-            if secret_question == "-- Choisissez une question --":
-                pass
-            current_user.secret_question = secret_question
-            if secret_response is None:
-                pass
-            current_user.secret_response = secret_response
-
-            current_user.password = generate_password_hash(new_password, method="sha256")
             db.session.commit()
             flash("Modification des données réalisée avec succès !", category="success")
             return redirect(url_for("auth.profile", user=current_user))
-        flash("Les mots de passe ne correspondent pas !", category="denied")
-    return render_template("change_profile.html", user=current_user)
+        if champ == "email":
+            current_user.email = email
+            db.session.commit()
+            flash("Modification des données réalisée avec succès !", category="success")
+            return redirect(url_for("auth.profile", user=current_user))
+        if champ == "secret_question" and "secret_response":
+            current_user.secret_question = secret_question
+            current_user.secret_response = secret_response
+            db.session.commit()
+            flash("Modification des données réalisée avec succès !", category="success")
+            return redirect(url_for("auth.profile", user=current_user))
+        # if champ == "secret_response":
+        #     current_user.secret_response = secret_response
+        #     db.session.commit()
+        #     flash("Modification des données réalisée avec succès !", category="success")
+        #     return redirect(url_for("auth.profile", user=current_user))
+        if champ == "password":
+            if new_password == new_password2:
+                current_user.password = generate_password_hash(new_password, method="sha256")
+                db.session.commit()
+                flash("Modification des données réalisée avec succès !", category="success")
+                return redirect(url_for("auth.profile", user=current_user))
+            flash("Les mots de passe ne correspondent pas !", category="denied")
+        if champ == "user_description":
+            current_user.user_description = user_description
+            db.session.commit()
+            flash("Modification des données réalisée avec succès !", category="success")
+            return redirect(url_for("auth.profile", user=current_user))
+    return render_template("change_profile.html", user=current_user, champ=champ)
 
 
 @auth.route("/forgot-pwd", methods=["GET", "POST"])
