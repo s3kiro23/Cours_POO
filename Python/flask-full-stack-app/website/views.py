@@ -28,6 +28,22 @@ def hello():
     return render_template("home.html", user=current_user)
 
 
+@views.route("/notes", methods=["GET", "POST"])
+@login_required
+def note():
+    if request.method == "POST":
+        titre = request.form.get("titre")
+        description = request.form.get("description")
+        print(f"{titre}, {description}")
+        if titre:
+            note.titre = titre
+            note.description = description
+            flash("Modification effectuée avec succès !", category="success")
+            return redirect(url_for("auth.profile", user=current_user))
+
+    return render_template("notes.html", user=current_user, note=note)
+
+
 @views.route("/contact")
 def contact():
     return render_template("contact.html", user=current_user)
