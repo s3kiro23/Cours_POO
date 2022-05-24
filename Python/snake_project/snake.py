@@ -135,8 +135,8 @@ class Wall:
         self.position = ((random.randint(0, NB_OF_CASE_WIDTH-1) * CASE_SIZE_IN_PIXEL), (random.randint(0, NB_OF_CASE_HEIGHT-1) * CASE_SIZE_IN_PIXEL))
 
     def draw(self, surface):
-        wall = pygame.Rect((self.position[0], self.position[1]), (CASE_SIZE_IN_PIXEL, CASE_SIZE_IN_PIXEL))
-        pygame.draw.rect(surface, self.color, wall)
+            wall = pygame.Rect((self.position[0], self.position[1]), (CASE_SIZE_IN_PIXEL, CASE_SIZE_IN_PIXEL))
+            pygame.draw.rect(surface, self.color, wall)
 
 # Function to draw the grid - 17
 def draw_grid(surface):
