@@ -18,6 +18,7 @@ class Snake:
         self.color = (17, 24, 47)
         self.speed = 10
         self.score = 0
+        self.best_score = 0
 
     # Method to get the position of the head of the snake - 4
     def get_head_position(self):
@@ -53,6 +54,8 @@ class Snake:
         self.position = [((SCREEN_WIDTH_IN_PIXEL / 2), (SCREEN_HEIGHT_IN_PIXEL / 2))]
         self.direction = random.choice([UP, DOWN, LEFT, RIGHT])
         self.speed = 10
+        if self.score > self.best_score:
+            self.best_score = self.score
         self.score = 0
 
     # Method to draw/display the snake on the board - 8
@@ -100,6 +103,32 @@ class Food:
         food = pygame.Rect((self.position[0], self.position[1]), (CASE_SIZE_IN_PIXEL, CASE_SIZE_IN_PIXEL))
         pygame.draw.rect(surface, self.color, food)
 
+class Buff:
+
+    def __init__(self):
+        self.position = ((random.randint(0, NB_OF_CASE_WIDTH-1) * CASE_SIZE_IN_PIXEL), (random.randint(0, NB_OF_CASE_HEIGHT-1) * CASE_SIZE_IN_PIXEL))
+        self.color = (60, 179, 113)
+
+    def randomize_buff(self):
+        self.position = ((random.randint(0, NB_OF_CASE_WIDTH-1) * CASE_SIZE_IN_PIXEL), (random.randint(0, NB_OF_CASE_HEIGHT-1) * CASE_SIZE_IN_PIXEL))
+    
+    def draw(self, surface, score):
+        if score % 10 == 0 and score > 0:
+            buff = pygame.Rect((self.position[0], self.position[1]), (CASE_SIZE_IN_PIXEL, CASE_SIZE_IN_PIXEL))
+            pygame.draw.rect(surface, self.color, buff)
+
+class Wall:
+
+    def __init__(self):
+        self.position = ((random.randint(0, NB_OF_CASE_WIDTH-1) * CASE_SIZE_IN_PIXEL), (random.randint(0, NB_OF_CASE_HEIGHT-1) * CASE_SIZE_IN_PIXEL))
+        self.color = (255,0,0)
+
+    def randomize_wall(self):
+        self.position = ((random.randint(0, NB_OF_CASE_WIDTH-1) * CASE_SIZE_IN_PIXEL), (random.randint(0, NB_OF_CASE_HEIGHT-1) * CASE_SIZE_IN_PIXEL))
+
+    def draw(self, surface):
+        wall = pygame.Rect((self.position[0], self.position[1]), (CASE_SIZE_IN_PIXEL, CASE_SIZE_IN_PIXEL))
+        pygame.draw.rect(surface, self.color, wall)
 
 # Function to draw the grid - 17
 def draw_grid(surface):
@@ -141,15 +170,18 @@ def main():
     surface = surface.convert()
     # Call the function that draws the grid - 21
     draw_grid(surface)
-    # Create a snake and an initial food - 22
+    # Create a snake, an initial food and wall - 22
     snake = Snake()
     food = Food()
+    wall = Wall()
+    buff = Buff()
     # Initiliaze the score - 23
     snake.score = 0
     # Configure the font of the score - 47
     pygame.font.init()
     myfont = pygame.font.SysFont("monospace", 16)
     # The game loop - 24
+
     while (True):
         # Choose the number of frames per second - 25
         clock.tick(snake.speed)
@@ -165,13 +197,21 @@ def main():
             food.randomize_food()
             snake.speed+=1
             snake.score+=1
+        if snake.position[0] == wall.position:
+            snake.reset()
+        if snake.position[0] == buff.position:
+            snake.length-=2
+            snake.speed-=5
+            snake.score+=2
         # Draw the snake and the food - 46
         snake.draw(surface)
         food.draw(surface)
+        wall.draw(surface)
+        buff.draw(surface, snake.score)
         # Update and refresh the screen when an action occurs (a lieu) - 26
         screen.blit(surface, (0, 0))
         # Display the score on the top left corner - 48
-        text = myfont.render("Score : {0}".format(snake.score), 1, (0, 0, 0))
+        text = myfont.render("Score : {0}               Best Score : {1}".format(snake.score, snake.best_score), 1, (0, 0, 0))
         screen.blit(text, (5, 10))
         pygame.display.update()
 
