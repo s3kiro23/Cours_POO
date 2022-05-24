@@ -33,22 +33,21 @@ class Snake:
         # Otherwise, it changes its position - 30
         else:
             self.direction = point
-            print(f"Self dir = {point}")
     # Method to move - 6
-    def move(self):
+    def move(self, screen):
         # Calculate the new position of the snake given the current one and the direction - 31
         current_head_position = self.get_head_position()
         new_head_position = ((current_head_position[0] + self.direction[0]*CASE_SIZE_IN_PIXEL)%SCREEN_WIDTH_IN_PIXEL, (current_head_position[1] + self.direction[1]*CASE_SIZE_IN_PIXEL)%SCREEN_WIDTH_IN_PIXEL)
         # If the head of the snake collides with its body, reset the game - 32
         if self.length > 4 and new_head_position in self.position[4:]:
-            self.reset()
+            self.reset(screen)
         # Otherwise, add the new position at the beginning of the list of position and remove the last one - 33
         else:
             self.position.insert(0, new_head_position)
             if len(self.position) > self.length:
                 self.position.pop()
     # Method to reset the snake in case of colision - 7
-    def reset(self):
+    def reset(self, screen):
         # Reset the snake with initial attributes - 34
         self.length = 1
         self.position = [((SCREEN_WIDTH_IN_PIXEL / 2), (SCREEN_HEIGHT_IN_PIXEL / 2))]
@@ -57,6 +56,15 @@ class Snake:
         if self.score > self.best_score:
             self.best_score = self.score
         self.score = 0
+
+        #Affichage YOU DIE et musique 
+        pygame.font.init()
+        youdiefont = pygame.font.SysFont("monospace", 80)
+        pygame.mixer.music.play()
+        youdie = youdiefont.render("YOU DIE", 1, "red")
+        screen.blit(youdie, (100, 200))
+        pygame.display.update()
+        pygame.time.wait(7000)
 
     # Method to draw/display the snake on the board - 8
     def draw(self, surface):        
@@ -157,7 +165,6 @@ LEFT = (-1, 0)
 RIGHT = (1, 0)
 
 
-
 def main():
     # Initialize the game - 14
     pygame.init()
@@ -180,8 +187,12 @@ def main():
     # Configure the font of the score - 47
     pygame.font.init()
     myfont = pygame.font.SysFont("monospace", 16)
-    # The game loop - 24
+    #Init and config the mixer
+    pygame.mixer.init()
+    pygame.mixer.music.load("Sekiro_Death-sound.mp3")
+    pygame.mixer.music.set_volume(1.0)
 
+    # The game loop - 24
     while (True):
         # Choose the number of frames per second - 25
         clock.tick(snake.speed)
@@ -190,17 +201,16 @@ def main():
         # Draw the grid - 43
         draw_grid(surface)
         # Move the snake - 44
-        snake.move()
+        snake.move(screen)
         # Check if the snake's head is on a food - 45
-        if snake.position[0] == food.position:
+        if snake.get_head_position() == food.position:
             snake.length+=1
-            food.randomize_food()
             snake.speed+=1
             snake.score+=1
-        if snake.position[0] == wall.position:
-            snake.reset()
-        if snake.position[0] == buff.position:
-            snake.length-=2
+            food.randomize_food()
+        if snake.get_head_position() == wall.position:
+            snake.reset(screen)
+        if snake.get_head_position() == buff.position:
             snake.speed-=5
             snake.score+=2
         # Draw the snake and the food - 46
@@ -211,8 +221,10 @@ def main():
         # Update and refresh the screen when an action occurs (a lieu) - 26
         screen.blit(surface, (0, 0))
         # Display the score on the top left corner - 48
-        text = myfont.render("Score : {0}               Best Score : {1}".format(snake.score, snake.best_score), 1, (0, 0, 0))
+        text = myfont.render("Score {0}".format(snake.score), 1, (0, 0, 0))
         screen.blit(text, (5, 10))
+        text = myfont.render("Best Score {0}".format(snake.best_score), 1, (0, 0, 0))
+        screen.blit(text, (200, 10))
         pygame.display.update()
 
 
