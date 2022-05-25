@@ -27,7 +27,7 @@ content %}
                            class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                            type="text"
                            required
-                           placeholder="Nom"
+                           placeholder="{{ current_user.nom }}"
                     />
                 </div>
                 {% elif champ == "email" %}
@@ -45,7 +45,7 @@ content %}
                             autocomplete="email"
 
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Utilisateur (email)"
+                            placeholder="{{ current_user.mail }}"
                     />
                 </div>
                 {% elif champ == "secret_question" %}
@@ -76,7 +76,7 @@ content %}
                             type="text"
                             required
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Réponse secrète"
+                            placeholder="{{ current_user.secret_response }}"
                     />
                 </div>
                 {% elif champ == "password" %}
@@ -120,7 +120,7 @@ content %}
                             name="user_description"
                             required
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Description">
+                            placeholder="{{ current_user.user_description }}">
                     </textarea>
                 </div>
                 {% endif %}
@@ -146,7 +146,7 @@ content %}
               />
             </svg>
           </span>
-                    Modifier
+                    Modify
                 </button>
             </div>
         </form>

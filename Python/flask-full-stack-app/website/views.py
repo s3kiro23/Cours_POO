@@ -28,20 +28,36 @@ def hello():
     return render_template("home.html", user=current_user)
 
 
-@views.route("/notes", methods=["GET", "POST"])
+def delete_note():
+    mynote = Note.query.get()
+    if mynote:
+        db.session.delete(note)
+        db.session.commit()
+        flash("Note supprimée !", category="denied")
+        return render_template("home.html", user=current_user)
+
+
+@views.route("/notes/<champ>", methods=["GET", "POST"])
 @login_required
-def note():
+def note(champ):
+
     if request.method == "POST":
         titre = request.form.get("titre")
         description = request.form.get("description")
-        print(f"{titre}, {description}")
-        if titre:
-            note.titre = titre
-            note.description = description
+        mynote = Note.query.filter_by(titre=titre).first()
+        print(f"{mynote}, {mynote.id}, {mynote.titre}")
+        if champ == "titre":
+            mynote.titre = titre
+            db.session.commit()
             flash("Modification effectuée avec succès !", category="success")
-            return redirect(url_for("auth.profile", user=current_user))
+            return redirect(url_for("views.hello"))
+        if champ == "description":
+            mynote.description = description
+            db.session.commit()
+            flash("Modification effectuée avec succès !", category="success")
+            return redirect(url_for("views.hello"))
 
-    return render_template("notes.html", user=current_user, note=note)
+    return render_template("notes.html", user=current_user, mynote=note, champ=champ)
 
 
 @views.route("/contact")
