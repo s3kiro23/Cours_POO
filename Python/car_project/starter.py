@@ -1,6 +1,7 @@
 # Import essential modules - 1
+from cmath import cos
 from email import utils
-from pickle import TRUE
+from pickle import FALSE, TRUE
 from turtle import position
 from starter_utils import scale_image, blit_rotate_center
 import pygame
@@ -58,51 +59,61 @@ class PlayerCar:
         self.x, self.y = self.START_POS
         self.acceleration = 0.1
     # Method to rotate the car - 4 
-    def rotate(self):
-        pass
+    def rotate(self, left=False, right=False):
         # Update the angle with the rotation velocity - 40
-
-
+        if left:
+            self.angle += self.rotation_velocity
+        if right:
+            self.angle -= self.rotation_velocity
 
     # Method to draw/display the car - 5
     def draw(self, screen):
         # Rotate the image of the car with a function in utils.py - 45
-        blit_rotate_center(screen, self.img, (self.x, self.y))
+        blit_rotate_center(screen, self.img, (self.x, self.y), self.angle)
 
     # Method to move forward (vers l'avant) - 6
     def move_forward(self):
-        pass
         # Update the velocity with the acceleration until the limit - 46
+        self.velocity = min(self.velocity + self.acceleration, self.maximum_velocity)
 
         # Move ! - 47
-
+        self.move()
 
     # Method to move backward (vers l'arrière) - 7
     def move_backward(self):
-        pass
         # Update the velocity with the acceleration until the limit - 48
-
+        self.velocity = max(self.velocity - self.acceleration, -self.maximum_velocity/2)
         # Move ! - 49
+        self.move()
+    
+    def boost(self):
+        self.velocity = min(self.velocity + self.acceleration*1.5, self.maximum_velocity*1.5)
 
+        self.move()
+    
+    def mario_start(self):
+        self.velocity = self.maximum_velocity*2
 
     # Method to move - 8
     def move(self):
-        pass
         # Convert the angle in radians - 50
-
+        angle_radiant = math.radians(self.angle)
         # Calculate the vertical and horizontal components of the movement - 51
-
-
+        y = self.velocity * math.cos(angle_radiant)
+        x = self.velocity * math.sin(angle_radiant)
         # Update the position according to - 52
-
+        self.y -= y
+        self.x -= x
 
     # Method to reduce movement speed when no key is pressed - 9
     def reduce_move_speed(self):
-        pass
         # Update the velocity with the acceleration until a limit - 53
-
+        if self.velocity > 0:
+            self.velocity = max(self.velocity - self.acceleration/2, 0)
+        else:
+            self.velocity = min(self.velocity + self.acceleration/2, 0)
         # Move ! - 54
-
+        self.move()
 
     # Method to handle the keys inputs - 10
     def handle_keys(self):
@@ -120,17 +131,19 @@ class PlayerCar:
         if keys[pygame.K_z]:
             moving = True
             self.move_forward()
-            print("HAUT")
-        if keys[pygame.K_q]:
-            self.rotate()
-            print("GAUCHE")
-        if keys[pygame.K_s]:
+        elif keys[pygame.K_s]:
             moving = True
             self.move_backward()
-            print("BAS")
+        if keys[pygame.K_LSHIFT]:
+            moving=True
+            self.boost()
+        if keys[pygame.K_SPACE]:
+            moving=True
+            self.mario_start()
+        if keys[pygame.K_q]:
+            self.rotate(left=True)
         if keys[pygame.K_d]:
-            self.rotate()
-            print("DROITE")
+            self.rotate(right=True)
 
         # If the car is not moving, reduce its speed - 59
         if not moving:
