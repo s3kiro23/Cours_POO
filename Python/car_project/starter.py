@@ -10,26 +10,27 @@ import pygame
 import sys
 import time
 import math
-import asyncio
 
 # Create the game info class - 16
 class GameInfo:
-    NB_OF_LEVELS = 1
+    NB_OF_LEVELS = 3
     # Constructor - 17
     def __init__(self, level=1):
         self.level = level
         self.started = False
         self.level_start_time = 0
+        self.lap = 0
 
     # Method to increase (augmenter) the level - 18
     def increase_level(self):
-        self.level += 1
+            self.level += 1
 
     # Method to reset the game - 19
     def reset_game(self):
         self.level = 1
         self.started = False
         self.level_start_time = 0
+        self.lap = 0
 
     # Method which checks if the game is finished - 20
     def is_game_finished(self):
@@ -225,6 +226,17 @@ class PlayerCar:
         self.angle = 0
         self.x, self.y = self.initial_position        
 
+def countdown(num_of_secs, screen, font):
+        while num_of_secs:
+            print(num_of_secs)
+            pygame.mixer.music.set_volume(2.0)
+            pygame.mixer.music.load("Start.mp3")
+            pygame.mixer.music.play()
+            blit_countdown_center(screen, font, f"{num_of_secs}")
+            pygame.display.flip()
+            time.sleep(1)
+            num_of_secs -= 1
+
 # Function to start the level - 23
 def start_level(game_info, screen, font):
     # Check all the events which can happen - 79
@@ -236,7 +248,7 @@ def start_level(game_info, screen, font):
             sys.exit()
         # If the player clicks on any key, start the game - 81
         if event.type == pygame.KEYDOWN:
-            game_info.countdown(3, screen, font)
+            countdown(3, screen, font)
             game_info.start_level()
             pygame.mixer.music.set_volume(1.0)
             pygame.mixer.music.load("F-Zero - Mute City.mp3")
@@ -254,7 +266,7 @@ def draw_images(screen, images, player_car_P1, player_car_P2, game_info, font):
     time_text = font.render(f"Time: {round(game_info.get_level_time(), 1)}s", 1, (255, 255, 255))
     screen.blit(time_text, (10, SCREEN_HEIGHT - time_text.get_height() - 40))
 
-    vel_text = font.render(f"Vel: {round(player_car_P1.velocity, 1)}px/s", 1, (255, 255, 255))
+    vel_text = font.render(f"Speed: {round(player_car_P1.velocity, 1)}px/s", 1, (255, 255, 255))
     screen.blit(vel_text, (10, SCREEN_HEIGHT - vel_text.get_height() - 0))
 
     # Draw the new elements and update the screen - 33
@@ -273,11 +285,10 @@ def handle_collision(player_car, game_info):
     if player_finish_poi_collide:
         # If this is not the case, bounce ! - 70
         if player_finish_poi_collide[1] == 0 :
-            player_car.bounce()
+            game_info.bounce()
         # Otherwise, reset the car and change level - 71
-        else:
-            player_car.reset()
-            game_info.increase_level()
+        player_car.reset()
+        game_info.increase_level()
 
 
 # Global variables (grass, track, track border, finish, car, width, height) - 24
@@ -351,9 +362,9 @@ def main():
             pygame.mixer.music.play()
             pygame.display.update()
             pygame.time.wait(10000)
-            game_info.reset_game()
             player_car_P1.reset()
             player_car_P2.reset()
+            game_info.reset_game()
 
 if __name__ == "__main__":
     main()
