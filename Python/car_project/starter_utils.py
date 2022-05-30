@@ -19,5 +19,11 @@ def blit_rotate_center(screen, image, top_left, angle):
     screen.blit(rotated_image, new_rect.topleft)
 
 # Create a function to display a text at the center of the screen - 84
+def blit_text_center(screen, font, text):
+    render = font.render(text, 1, (200, 200, 200))
+    screen.blit(render, (screen.get_width()/2 - render.get_width()/2, screen.get_height()/2 - render.get_height()/2))
 
+def blit_countdown_center(screen, font, text):
+    render = font.render(text, 1, (255, 0, 0))
+    screen.blit(render, (screen.get_width()/2 - render.get_width()/2, screen.get_height()/2.5 - render.get_height()/2.5))
 
