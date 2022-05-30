@@ -84,13 +84,13 @@ class Snake:
                 sys.exit()
             # Otherwise, depending on the pressed key, turn the snake in the corresponding position - 38
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_z:
                     self.turn(UP)
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_s:
                     self.turn(DOWN)
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_q:
                     self.turn(LEFT)
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_d:
                     self.turn(RIGHT)
 
 
