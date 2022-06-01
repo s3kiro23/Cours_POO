@@ -24,6 +24,6 @@ def blit_text_center(screen, font, text):
     screen.blit(render, (screen.get_width()/2 - render.get_width()/2, screen.get_height()/2 - render.get_height()/2))
 
 def blit_countdown_center(screen, font, text):
-    render = font.render(text, 1, (255, 0, 0))
+    render = font.render(text, 5, (255, 0, 0))
     screen.blit(render, (screen.get_width()/2 - render.get_width()/2, screen.get_height()/2.5 - render.get_height()/2.5))
 

@@ -49,18 +49,6 @@ class GameInfo:
         if not self.started:
             return 0
         return time.time() - self.level_start_time
-    
-    # Compte à rebours départ course
-    def countdown(self, num_of_secs, screen, font):
-        while num_of_secs:
-            print(num_of_secs)
-            pygame.mixer.music.set_volume(2.0)
-            pygame.mixer.music.load("Start.mp3")
-            pygame.mixer.music.play()
-            blit_countdown_center(screen, font, f"{num_of_secs}")
-            pygame.display.flip()
-            time.sleep(1)
-            num_of_secs -= 1
 
 
 # Create the player car class - 2
@@ -226,29 +214,36 @@ class PlayerCar:
         self.angle = 0
         self.x, self.y = self.initial_position        
 
-def countdown(num_of_secs, screen, font):
-        while num_of_secs:
-            print(num_of_secs)
-            pygame.mixer.music.set_volume(2.0)
-            pygame.mixer.music.load("Start.mp3")
-            pygame.mixer.music.play()
-            blit_countdown_center(screen, font, f"{num_of_secs}")
-            pygame.display.flip()
-            time.sleep(1)
-            num_of_secs -= 1
+
+def countdown(screen):
+    counter = 3
+    counter_font = pygame.font.SysFont('Consolas', 60)
+    while counter:
+        for event in pygame.event.get():  
+        # If the player clicks on the "Quit" key, stop the game - 80
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        pygame.mixer.music.set_volume(2.0)
+        pygame.mixer.music.load("Start.mp3")
+        pygame.mixer.music.play()
+        blit_countdown_center(screen, counter_font, f"{counter}")
+        pygame.display.update()
+        time.sleep(1)
+        counter -= 1
+   
 
 # Function to start the level - 23
-def start_level(game_info, screen, font):
+def start_level(game_info, screen):
     # Check all the events which can happen - 79
-    for event in pygame.event.get():
-        
+    for event in pygame.event.get():  
         # If the player clicks on the "Quit" key, stop the game - 80
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         # If the player clicks on any key, start the game - 81
         if event.type == pygame.KEYDOWN:
-            countdown(3, screen, font)
+            countdown(screen)
             game_info.start_level()
             pygame.mixer.music.set_volume(1.0)
             pygame.mixer.music.load("F-Zero - Mute City.mp3")
@@ -336,6 +331,8 @@ def main():
     # Initialize the font - 82
     pygame.font.init()
     my_font = pygame.font.SysFont("comicsans", 30)
+
+    # Background counter refresh
     
     # The game loop - 29
     while TRUE:
@@ -347,8 +344,7 @@ def main():
         while not game_info.started:
             pygame.display.update()
             blit_text_center(screen, my_font, f"Press any key to start level")
-            start_level(game_info, screen, my_font)
-
+            start_level(game_info, screen)
         # Handle the pressed keys - 60
         player_car_P1.handle_keys_p1()
         player_car_P2.handle_keys_p2()
